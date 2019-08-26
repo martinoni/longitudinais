@@ -1,7 +1,7 @@
 library(readxl)
 library(ggplot2)
 
-DDVE <- read_excel("C:/Users/lucasb/Downloads/perfDDVEp_bait.xlsx")
+DDVE <- read_excel("C:/Users/rpassos/Desktop/longitudinais-master/Dados/perfDDVEp_bait.xlsx")
 
 id <- c()
 grupo <- c()
@@ -59,7 +59,7 @@ for(j in 2:ncol(DDVE)){
 media.df <- data.frame(id,grupo,semana,diam)
 tipo <- c(rep("indiv",284),rep("media",30))
 
-DDVE.t <- rbind(DDVE.l,media)
+DDVE.t <- rbind(DDVE.l,media.df)
 DDVE.t <- cbind(DDVE.t,tipo)
 
 ggplot(data=DDVE.t, aes(x=semana, y=diam, group = id,color=grupo)) +
@@ -91,3 +91,8 @@ ggplot(data=media.df, aes(x=semana, y=diam, group = id,color=grupo))+
   geom_point() +
   scale_color_manual(values = c("blue","red"))
 
+
+aux_AIG <- DDVE.l %>% filter(grupo == "AIG") %>% count(by = semana)
+aux_PIG <- DDVE.l %>% filter(grupo == "PIG") %>% count(by = semana)
+tabela <- inner_join(aux_AIG, aux_PIG, by = "by")
+names(tabela) <- c("Semana", "Quantidade de AIG", "Quantidade de PIG")
