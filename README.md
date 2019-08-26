@@ -1,3 +1,3 @@
 # longitudinais
 
-GOGOGO
+Dedo no cu e gritaria
