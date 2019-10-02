@@ -185,4 +185,158 @@ ggplot(data=DDVE.l, aes(x=semana, y=diam, group = grupo,color=grupo)) +
 
 
 
+ggplot(data=aig, aes(x=semana, y=diam, grup=id)) +
+  geom_point(colour="blue") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))
+
+
+
+
+
+
+
+library(plotly)
+ggplot(data=aig, aes(x=semana, y=diam, grup=id)) +
+  geom_point(colour="blue") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))
+ggplotly()
+
+
+aig_1 <- subset(aig, id == 1)
+ggplot(data=aig_1, aes(x=semana, y=diam)) +
+  geom_point(colour="blue") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+aig_22 <- subset(aig, id == 22)
+ggplot(data=aig_22, aes(x=semana, y=diam)) +
+  geom_point(colour="blue") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+aig_8 <- subset(aig, id == 8)
+ggplot(data=aig_8, aes(x=semana, y=diam)) +
+  geom_point(colour="blue") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+
+aig_20 <- subset(aig, id == 20)
+ggplot(data=aig_20, aes(x=semana, y=diam)) +
+  geom_point(colour="blue") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+
+aig_28 <- subset(aig, id == 28)
+ggplot(data=aig_28, aes(x=semana, y=diam)) +
+  geom_point(colour="blue") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+
+
+
+library(plotly)
+ggplot(data=pig, aes(x=semana, y=diam, grup=id)) +
+  geom_point(colour="red") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))
+ggplotly()
+
+
+pig_58 <- subset(pig, id == 58)
+ggplot(data=pig_58, aes(x=semana, y=diam)) +
+  geom_point(colour="red") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+pig_37<- subset(pig, id == 37)
+ggplot(data=pig_37, aes(x=semana, y=diam)) +
+  geom_point(colour="red") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+pig_51 <- subset(pig, id == 51)
+ggplot(data=pig_51, aes(x=semana, y=diam)) +
+  geom_point(colour="red") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+pig_52 <- subset(pig, id == 52)
+ggplot(data=pig_52, aes(x=semana, y=diam)) +
+  geom_point(colour="red") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+pig_32 <- subset(pig, id == 32)
+ggplot(data=pig_32, aes(x=semana, y=diam)) +
+  geom_point(colour="red") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+pig_31 <- subset(pig, id == 31)
+ggplot(data=pig_31, aes(x=semana, y=diam)) +
+  geom_point(colour="red") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
+
+
+
+pig_37 <- subset(pig, id == 37)
+ggplot(data=pig_37, aes(x=semana, y=diam)) +
+  geom_point(colour="red") +
+  geom_smooth(method="loess",se = FALSE,span=1) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_size_manual(values = c(0.5,2))+
+  scale_x_continuous(limits = c(26, 40)) + 
+  scale_y_continuous(limits = c(6, 20)) 
 
