@@ -1084,22 +1084,54 @@ residdiag.nlme = function(fit, limit,plotid=NULL) {
     mat.iV = iV)
 }
 
-residdiag.nlme(fit_1, limit=2, plotid=1:16)
-
-  
+#residdiag.nlme(fit_1, limit=2, plotid=1:16)
 
 
-DDVE.l$semana <-  scale(DDVE.l$semana)
 
 
+DDVE.l$semana <- (DDVE.l$semana - 33) / 4.29  
+
+
+
+fit_1 <- lme( diam ~ I(as.numeric(grupo == 'AIG')) + 
+                I(as.numeric(grupo == 'PIG')) + 
+                
+                I(as.numeric(I(grupo == 'AIG'))*semana) +
+                I(as.numeric(I(grupo == 'PIG'))*semana) +
+                
+                I(as.numeric(I(grupo == 'PIG'))*(semana ^ 2)) - 1,
+              na.action = na.omit, 
+              data = DDVE.l,
+              random = list(id = pdBlocked(list(
+                pdSymm(~as.numeric(I(grupo == 'AIG')) + 
+                         I(as.numeric(I(grupo == 'AIG'))*semana) +
+                         I(as.numeric(I(grupo == 'AIG'))*(semana ^ 2))- 1),
+                pdSymm(~as.numeric(I(grupo == 'PIG')) + 
+                         I(as.numeric(I(grupo == 'PIG'))*semana) + 
+                         I(as.numeric(I(grupo == 'PIG'))*(semana ^ 2))
+                       - 1)) )),
+              control = list(MaxIter = 100000,niterEM = 100000,
+                             msMaxIter = 100000,
+                             tolerance = 0.0001,msTol = 0.0000001,
+                             msMaxEval = 1000000)) 
+summary(fit_1)
+round(summary(fit_1)$tTable,digits = 2)
+getVarCov(fit_1,'random effects')
+round(diag(getVarCov(fit_1,'random effects')),digits = 2)
+getVarCov(fit_1,"conditional",individuals = 1)
+round(AIC(fit_1),digits = 1)
+round(BIC(fit_1),digits = 1)
+round(logLik(fit_1),digits = 1)
+summary(fit_1)$sigma
+#residdiag.nlme(fit_1, limit=2, plotid=1:16)
 
 
 
 
 DDVE.l$groupAIGePIG <- (ifelse(DDVE.l$id==8,1,0) + ifelse(DDVE.l$id==20,1,0) + ifelse(DDVE.l$id==28,1,0) +
-                        ifelse(DDVE.l$id==31,1,0) + ifelse(DDVE.l$id==32,1,0) + ifelse(DDVE.l$id==37,1,0) + 
-                        ifelse(DDVE.l$id==58,1,0) + ifelse(DDVE.l$id==51,3,0) + ifelse(DDVE.l$id==52,2,0) + 
-                        ifelse(DDVE.l$id==1,2,0) + ifelse(DDVE.l$id==22,2,0))
+                          ifelse(DDVE.l$id==31,1,0) + ifelse(DDVE.l$id==32,1,0) + ifelse(DDVE.l$id==37,1,0) + 
+                          ifelse(DDVE.l$id==58,1,0) + ifelse(DDVE.l$id==51,3,0) + ifelse(DDVE.l$id==52,2,0) + 
+                          ifelse(DDVE.l$id==1,2,0) + ifelse(DDVE.l$id==22,2,0))
 
 
 
@@ -1120,10 +1152,95 @@ fit_2 <- lme(diam ~ I(as.numeric(grupo == 'AIG')) +
                             msMaxEval = 1000000))
 
 summary(fit_2)
+round(summary(fit_2)$tTable,digits = 2)
+getVarCov(fit_2,'random effects')
+round(diag(getVarCov(fit_2,'random effects')),digits = 2)
+getVarCov(fit_2,"conditional",individuals = 52)
+getVarCov(fit_2,"conditional",individuals = 51)
+getVarCov(fit_2,"conditional",individuals = 58)
+getVarCov(fit_2,"conditional",individuals = 7)
+round(AIC(fit_2),digits = 1)
+round(BIC(fit_2),digits = 1)
+round(logLik(fit_2),digits = 1)
 
-dados_2 <- coef(fit_2)
+#residdiag.nlme(fit_2, limit=2, plotid=1:16)
 
-residdiag.nlme(fit_2, limit=2, plotid=1:16)
+
+
+
+
+
+
+
+fit_3 <- lme( diam ~ I(as.numeric(grupo == 'AIG')) + 
+                I(as.numeric(grupo == 'PIG')) + 
+                
+                I(as.numeric(I(grupo == 'AIG'))*semana) +
+                I(as.numeric(I(grupo == 'PIG'))*semana) +
+                
+                I(as.numeric(I(grupo == 'PIG'))*(semana ^ 2)) - 1,
+              na.action = na.omit, 
+              data = DDVE.l,
+              random = list(id = pdBlocked(list(
+                pdSymm(~as.numeric(I(grupo == 'AIG')) + 
+                         I(as.numeric(I(grupo == 'AIG'))*semana) +
+                         I(as.numeric(I(grupo == 'AIG'))*(semana ^ 2))- 1),
+                pdSymm(~as.numeric(I(grupo == 'PIG')) + 
+                         I(as.numeric(I(grupo == 'PIG'))*semana) + 
+                         I(as.numeric(I(grupo == 'PIG'))*(semana ^ 2))
+                       - 1)) )),
+              weights= varIdent(c("0" = 0.2), form = ~ 1 | groupAIGePIG),
+              control = list(MaxIter = 100000,niterEM = 100000,
+                             msMaxIter = 100000,
+                             tolerance = 0.0001,msTol = 0.0000001,
+                             msMaxEval = 1000000)) 
+summary(fit_3)
+round(summary(fit_3)$tTable,digits = 2)
+getVarCov(fit_3,'random effects')
+round(diag(getVarCov(fit_3,'random effects')),digits = 2)
+getVarCov(fit_3,"conditional",individuals = 52)
+getVarCov(fit_3,"conditional",individuals = 51)
+getVarCov(fit_3,"conditional",individuals = 58)
+getVarCov(fit_3,"conditional",individuals = 7)
+round(AIC(fit_3),digits = 1)
+round(BIC(fit_3),digits = 1)
+round(logLik(fit_3),digits = 1)
+summary(fit_3)$sigma
+
+#residdiag.nlme(fit_3, limit=2, plotid=1:16)
+
+
+
+
+
+
+
+
+fit_4 <- lme( diam ~ I(as.numeric(grupo == 'AIG')) + 
+                I(as.numeric(grupo == 'PIG')) + 
+                
+                I(as.numeric(I(grupo == 'AIG'))*semana) +
+                I(as.numeric(I(grupo == 'PIG'))*semana) +
+                
+                I(as.numeric(I(grupo == 'PIG'))*(semana ^ 2)) - 1,
+              na.action = na.omit, 
+              data = DDVE.l,
+              random = ~semana + I(semana^2) | id,
+              weights= varIdent(c("0" = 0.2), form = ~ 1 | groupAIGePIG),
+              control = list(MaxIter = 100000,niterEM = 100000,
+                             msMaxIter = 100000,
+                             tolerance = 0.0001,msTol = 0.0000001,
+                             msMaxEval = 1000000)) 
+summary(fit_4)
+round(summary(fit_4)$tTable,digits = 2)
+getVarCov(fit_4,'random effects')
+round(diag(getVarCov(fit_4,'random effects')),digits = 2)
+getVarCov(fit_4,"conditional",individuals = 1)
+round(AIC(fit_4),digits = 1)
+round(BIC(fit_4),digits = 1)
+round(logLik(fit_4),digits = 1)
+
+#residdiag.nlme(fit_4, limit=2, plotid=1:16)
 
 
 
